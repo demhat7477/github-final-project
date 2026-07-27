@@ -1,0 +1,565 @@
+/* ============================================================
+   Für Evin · Secret Spa Frankfurt
+   ============================================================ */
+
+:root{
+  --ink:      #0c0a09;
+  --ink-2:    #131010;
+  --stone:    #1c1815;
+  --line:     rgba(214,178,122,.18);
+  --gold:     #d6b27a;
+  --gold-lt:  #ecd6ae;
+  --cream:    #f2ede6;
+  --muted:    #9b9086;
+  --laser:    #ff4d5e;
+
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  --pad: clamp(1.25rem, 5vw, 3rem);
+  --max: 68rem;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:clamp(1rem,.96rem + .3vw,1.1rem);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+body.is-locked{ overflow:hidden; height:100%; }
+body.is-locked #main{ opacity:0; }
+#main{ transition:opacity .8s var(--ease); }
+
+img,video{ max-width:100%; height:auto; display:block; }
+em{ font-style:italic; }
+
+::selection{ background:var(--gold); color:var(--ink); }
+
+:focus-visible{ outline:2px solid var(--gold); outline-offset:4px; border-radius:4px; }
+
+/* ---------- Typo-Bausteine ---------- */
+
+.kicker{
+  font-size:.72rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--gold); font-weight:500; margin:0 0 1.1rem;
+}
+
+.h2{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(2.4rem,1.6rem + 4vw,4.4rem);
+  line-height:1.02; letter-spacing:-.01em; margin:0 0 1rem;
+}
+.h2 em{ color:var(--gold); }
+
+.lead{ color:var(--muted); margin:0; max-width:32ch; }
+.dim{ color:var(--muted); }
+
+/* ============================================================
+   TÜRSTEHER
+   ============================================================ */
+
+.gate{
+  position:fixed; inset:0; z-index:60;
+  display:grid; place-items:center;
+  padding:var(--pad);
+  text-align:center;
+  background:var(--ink);
+  transition:opacity .9s var(--ease), visibility .9s;
+}
+.gate.is-open{ opacity:0; visibility:hidden; pointer-events:none; }
+.gate[hidden]{ display:none; }
+
+.gate__bg{
+  position:absolute; inset:0;
+  background:url("/assets/media/spa.jpg") center/cover no-repeat;
+  /* stark abgedunkelt: soll Atmosphäre sein, nicht den Ort verraten */
+  filter:blur(9px) brightness(.28) saturate(.8);
+  transform:scale(1.12);
+}
+.gate__bg::after{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(120% 80% at 50% 42%, rgba(214,178,122,.10), transparent 62%),
+    linear-gradient(180deg, rgba(12,10,9,.72), rgba(12,10,9,.94));
+}
+
+.gate__inner{ position:relative; max-width:34rem; }
+
+.gate__title{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(3.4rem,2rem + 9vw,7rem);
+  line-height:.95; margin:0 0 1rem; letter-spacing:-.02em;
+}
+.gate__title em{ display:block; color:var(--gold); font-style:italic; }
+
+.gate__sub{ color:var(--muted); margin:0 auto 2.6rem; max-width:26ch; }
+
+/* Halte-Button */
+.hold{
+  position:relative;
+  width:132px; height:132px; margin:0 auto;
+  display:grid; place-items:center;
+  background:none; border:0; padding:0;
+  cursor:pointer; color:inherit;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:none;
+}
+.hold__ring{ position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg); }
+.hold__track{ fill:none; stroke:rgba(242,237,230,.14); stroke-width:1.5; }
+.hold__fill{
+  fill:none; stroke:var(--gold); stroke-width:2.5; stroke-linecap:round;
+  stroke-dasharray:339.3; stroke-dashoffset:339.3;
+  transition:stroke-dashoffset .1s linear;
+  filter:drop-shadow(0 0 6px rgba(214,178,122,.5));
+}
+.hold__dot{
+  position:absolute; width:74px; height:74px; border-radius:50%;
+  background:radial-gradient(circle at 42% 36%, rgba(255,255,255,.22), rgba(214,178,122,.16) 45%, transparent 70%);
+  border:1px solid var(--line);
+  transition:transform .3s var(--ease), background .3s;
+}
+.hold.is-holding .hold__dot{ transform:scale(.86); background:radial-gradient(circle at 42% 36%, rgba(255,255,255,.34), rgba(214,178,122,.3) 45%, transparent 72%); }
+.hold__label{
+  position:relative; font-size:.7rem; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--gold); font-weight:500;
+}
+.hold::after{
+  content:""; position:absolute; inset:-14px; border-radius:50%;
+  border:1px solid rgba(214,178,122,.12);
+  animation:pulse 3s var(--ease) infinite;
+}
+@keyframes pulse{
+  0%,100%{ transform:scale(1);   opacity:.7; }
+  50%    { transform:scale(1.1); opacity:.15; }
+}
+
+.gate__hint{ margin:1.8rem 0 0; font-size:.9rem; line-height:1.6; }
+.gate__skip{
+  display:inline-block; margin-top:2rem;
+  color:var(--muted); font-size:.8rem; text-decoration:none;
+  border-bottom:1px solid var(--line); padding-bottom:2px;
+}
+.gate__skip:hover{ color:var(--cream); }
+
+/* Dampf */
+.steam{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.steam i{
+  position:absolute; bottom:-30%; left:var(--x,50%);
+  width:52vmin; height:52vmin; border-radius:50%;
+  background:radial-gradient(circle, rgba(214,178,122,.13), transparent 68%);
+  filter:blur(28px);
+  animation:rise var(--dur,20s) linear var(--del,0s) infinite;
+}
+.steam i:nth-child(1){ --x:12%; --dur:22s; --del:0s; }
+.steam i:nth-child(2){ --x:44%; --dur:28s; --del:-8s; }
+.steam i:nth-child(3){ --x:72%; --dur:24s; --del:-14s; }
+.steam i:nth-child(4){ --x:88%; --dur:30s; --del:-4s; }
+.steam--soft i{ background:radial-gradient(circle, rgba(214,178,122,.09), transparent 68%); }
+@keyframes rise{
+  0%  { transform:translateY(0) scale(.7);        opacity:0; }
+  18% { opacity:1; }
+  100%{ transform:translateY(-135vh) scale(1.5);  opacity:0; }
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+
+.section{
+  position:relative;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:clamp(5rem,14vw,10rem) var(--pad);
+}
+.section--tight{ padding-top:0; }
+.section--gift{ overflow:hidden; }
+
+.section__head{ margin-bottom:clamp(2.5rem,7vw,4.5rem); }
+
+/* ---------- Beweisstücke ---------- */
+
+.exhibits{ display:grid; gap:clamp(4rem,11vw,7rem); }
+
+.exhibit{ margin:0; }
+.exhibit__no{
+  font-size:.68rem; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 .9rem; font-weight:500;
+}
+.exhibit figcaption h3{
+  font-family:var(--serif); font-weight:500;
+  font-size:clamp(1.5rem,1.1rem + 1.6vw,2.2rem);
+  line-height:1.15; margin:1.6rem 0 .7rem;
+}
+.exhibit figcaption p{ margin:0 0 .8rem; color:var(--muted); max-width:46ch; }
+
+.exhibit__media{ position:relative; }
+.exhibit__media img{
+  width:100%; border-radius:14px;
+  /* Hochformate sonst endlos lang – lieber beschneiden als scrollen. */
+  max-height:72vh; object-fit:cover; object-position:center 22%;
+  border:1px solid var(--line);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.9);
+}
+
+.stamp{
+  display:inline-block; margin-top:.6rem !important;
+  font-size:.66rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold); border:1px solid var(--line);
+  padding:.4rem .8rem; border-radius:99px; transform:rotate(-1.5deg);
+}
+.stamp--red{ color:var(--laser); border-color:rgba(255,77,94,.3); transform:rotate(1.5deg); }
+
+@media (min-width:52rem){
+  .exhibit--split{
+    display:grid; grid-template-columns:1.05fr .95fr;
+    gap:clamp(2rem,5vw,4rem); align-items:center;
+  }
+  .exhibit--split figcaption h3{ margin-top:0; }
+  .exhibit--flip .exhibit__media{ order:2; }
+}
+
+/* Tilt */
+.tilt{ transition:transform .5s var(--ease); transform-style:preserve-3d; will-change:transform; }
+
+/* ---------- Fernseher ---------- */
+
+.tv{
+  padding:clamp(.6rem,2vw,1rem);
+  border-radius:18px;
+  background:linear-gradient(160deg,#2a2522,#141110 60%);
+  border:1px solid var(--line);
+  box-shadow:0 34px 80px -34px rgba(0,0,0,.95);
+}
+.tv__screen{
+  position:relative; border-radius:10px; overflow:hidden;
+  background:#000; aspect-ratio:766/434;
+}
+.tv__screen video{ width:100%; height:100%; object-fit:cover; }
+.tv__scan{
+  position:absolute; inset:0; pointer-events:none;
+  background:
+    repeating-linear-gradient(180deg, rgba(0,0,0,.2) 0 1px, transparent 1px 3px),
+    radial-gradient(130% 110% at 50% 50%, transparent 58%, rgba(0,0,0,.45));
+  mix-blend-mode:multiply;
+  opacity:.6;
+}
+
+.play{
+  position:absolute; inset:0; margin:0;
+  display:grid; place-items:center; gap:.7rem; align-content:center;
+  background:rgba(10,8,7,.42);
+  backdrop-filter:blur(2px);
+  border:0; cursor:pointer; color:var(--cream);
+  font-family:var(--sans); font-size:.72rem;
+  letter-spacing:.24em; text-transform:uppercase;
+  transition:opacity .45s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.play svg{
+  width:64px; height:64px; padding:16px;
+  border-radius:50%; box-sizing:border-box;
+  fill:var(--ink); background:var(--gold);
+  box-shadow:0 0 0 1px rgba(214,178,122,.4), 0 0 40px rgba(214,178,122,.35);
+  transition:transform .3s var(--ease);
+}
+.play:hover svg{ transform:scale(1.07); }
+.play.is-gone{ opacity:0; pointer-events:none; }
+
+/* ---------- Zahlen ---------- */
+
+.stats{
+  list-style:none; margin:0; padding:0;
+  display:grid; gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:16px; overflow:hidden;
+}
+.stats li{
+  background:var(--ink-2);
+  padding:clamp(1.4rem,4vw,2.2rem);
+  display:grid; gap:.35rem;
+}
+.stats b{
+  font-family:var(--serif); font-weight:500;
+  font-size:clamp(2.2rem,1.4rem + 3.4vw,3.4rem);
+  line-height:1; color:var(--gold);
+  /* Cormorant setzt sonst Mediävalziffern – für Zahlen zu unruhig. */
+  font-variant-numeric:lining-nums tabular-nums;
+  font-feature-settings:"lnum" 1, "tnum" 1;
+}
+.stats span{ font-size:.85rem; color:var(--muted); }
+@media (min-width:40rem){ .stats{ grid-template-columns:1fr 1fr; } }
+@media (min-width:64rem){ .stats{ grid-template-columns:repeat(4,1fr); } }
+
+.verdict{
+  margin:2.5rem 0 0; padding:clamp(1.5rem,4vw,2.2rem);
+  border:1px dashed rgba(255,77,94,.28); border-radius:16px;
+  display:grid; gap:.4rem; text-align:center;
+  background:linear-gradient(180deg, rgba(255,77,94,.05), transparent);
+}
+.verdict__label{ font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); }
+.verdict__value{
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(1.9rem,1.3rem + 2.6vw,2.9rem);
+  line-height:1.1; color:var(--laser);
+}
+.verdict__note{ font-size:.9rem; color:var(--muted); }
+
+/* ---------- Brief ---------- */
+
+.note{
+  position:relative;
+  max-width:40rem; margin:0 auto;
+  padding:clamp(2rem,6vw,3.6rem);
+  border-radius:18px;
+  background:
+    radial-gradient(120% 90% at 20% 0%, rgba(214,178,122,.07), transparent 60%),
+    var(--stone);
+  border:1px solid var(--line);
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.95);
+}
+.note__text{
+  margin:0; font-family:var(--serif);
+  font-size:clamp(1.35rem,1.05rem + 1.5vw,2rem);
+  line-height:1.45; color:var(--cream); font-weight:300;
+}
+.note__text p{ margin:0 0 1.1rem; }
+.note__text p:first-child{ color:var(--gold); font-style:italic; }
+.note__text p:last-child{ margin-bottom:0; }
+.note__sign{
+  margin:2rem 0 0; font-size:.82rem;
+  letter-spacing:.12em; color:var(--muted); text-align:right;
+}
+
+/* ---------- Gutschein ---------- */
+
+.voucher{ perspective:1400px; margin:0 auto clamp(3.5rem,9vw,6rem); max-width:32rem; }
+
+.voucher__card{
+  position:relative; display:block;
+  width:100%; aspect-ratio:1.62/1; min-height:19rem;
+  padding:0; border:0; background:none;
+  cursor:pointer; color:inherit;
+  transform-style:preserve-3d;
+  transition:transform .95s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.voucher__card.is-flipped{ transform:rotateY(180deg); }
+
+.voucher__face{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:clamp(1.1rem,4vw,2rem);
+  border-radius:16px; overflow:hidden;
+  border:1px solid rgba(214,178,122,.34);
+  background:
+    linear-gradient(180deg, rgba(12,10,9,.62), rgba(12,10,9,.86)),
+    url("/assets/media/spa.jpg") center/cover no-repeat;
+  box-shadow:0 40px 90px -36px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  text-align:center;
+}
+.voucher__face--back{
+  transform:rotateY(180deg);
+  justify-content:center;
+  padding-block:clamp(1.3rem,4vw,2rem);
+  background:linear-gradient(165deg,#241f1a,#12100e 70%);
+}
+
+.voucher__shine{
+  position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(105deg, transparent 38%, rgba(236,214,174,.16) 47%, rgba(255,255,255,.26) 50%, rgba(236,214,174,.16) 53%, transparent 62%);
+  transform:translateX(-120%);
+  animation:sweep 6s var(--ease) 1.5s infinite;
+}
+@keyframes sweep{ 0%{ transform:translateX(-120%);} 55%,100%{ transform:translateX(120%);} }
+
+.voucher__eyebrow{
+  font-size:.62rem; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--gold); font-weight:500;
+}
+.voucher__word{
+  font-family:var(--serif); font-weight:300; font-style:italic;
+  font-size:clamp(2.6rem,1.4rem + 7vw,4.2rem);
+  line-height:1; margin:.5rem 0 .1rem;
+  background:linear-gradient(180deg,#f7e9cd,#d6b27a 55%,#a8814a);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
+}
+.voucher__rule{ width:64px; height:1px; background:var(--gold); opacity:.5; margin:.9rem 0; }
+.voucher__for{ font-family:var(--serif); font-size:1.3rem; letter-spacing:.04em; }
+.voucher__flip{
+  position:absolute; bottom:clamp(.9rem,3vw,1.4rem);
+  font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+}
+
+/* eine Spur kleiner, damit die PLZ-Zeile nicht am Bindestrich umbricht.
+   Muss dd mitnehmen, sonst gewinnt die Groesse aus .voucher__rows dd. */
+.voucher__rows dd.voucher__addr{
+  font-size:clamp(.84rem,.76rem + .4vw,1rem);
+  line-height:1.4;
+}
+
+.voucher__note{
+  margin-top:1.1rem; font-size:.62rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+}
+
+.voucher__rows{ margin:0; width:100%; max-width:24rem; display:grid; gap:.45rem; }
+.voucher__rows div{
+  display:grid; grid-template-columns:5.4rem 1fr; gap:.6rem;
+  align-items:baseline; text-align:left;
+}
+.voucher__rows dt{
+  font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold);
+}
+/* auf sehr schmalen Geraeten die Beschriftungsspalte kuerzen, damit die
+   Adresse nicht in vier Zeilen zerfaellt */
+@media (max-width:24rem){
+  .voucher__rows div{ grid-template-columns:4.6rem 1fr; gap:.5rem; }
+}
+.voucher__rows dd{
+  margin:0; font-family:var(--serif); font-size:clamp(.95rem,.85rem + .5vw,1.15rem);
+  line-height:1.3; color:var(--cream);
+  font-variant-numeric:lining-nums;
+  font-feature-settings:"lnum" 1;
+  border-bottom:1px solid rgba(214,178,122,.12); padding-bottom:.3rem;
+}
+
+/* ---------- Einlösecode ---------- */
+
+.code{
+  max-width:32rem;
+  margin:0 auto clamp(3.5rem,9vw,6rem);
+  padding:clamp(1.5rem,5vw,2.2rem);
+  text-align:center;
+  border:1px solid rgba(214,178,122,.3);
+  border-radius:16px;
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(214,178,122,.09), transparent 65%),
+    var(--ink-2);
+}
+.code__label{
+  margin:0 0 .8rem; font-size:.62rem; font-weight:500;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--gold);
+}
+.code__value{
+  margin:0 0 1.2rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:clamp(1.05rem,.75rem + 1.5vw,1.5rem);
+  font-weight:500; letter-spacing:.12em; color:var(--cream);
+  word-break:break-all;
+  /* damit man ihn auch antippen und markieren kann, statt nur zu kopieren */
+  -webkit-user-select:all; user-select:all;
+}
+.code__copy{
+  font-family:var(--sans); font-size:.68rem; font-weight:500;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink); background:var(--gold);
+  border:0; border-radius:99px; padding:.75rem 1.5rem;
+  cursor:pointer; transition:background .3s, transform .2s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.code__copy:hover{ background:var(--gold-lt); }
+.code__copy:active{ transform:scale(.97); }
+.code__copy.is-done{ background:var(--gold-lt); }
+.code__hint{ margin:1.1rem 0 0; font-size:.8rem; color:var(--muted); }
+
+/* ---------- Der Ort ---------- */
+
+.place{ margin:0; }
+.place img{
+  width:100%; border-radius:16px; border:1px solid var(--line);
+  box-shadow:0 34px 80px -34px rgba(0,0,0,.95);
+}
+.place figcaption{
+  margin-top:1rem; font-size:.88rem; color:var(--muted);
+  text-align:center; max-width:44ch; margin-inline:auto;
+}
+
+/* ---------- Outro ---------- */
+
+.outro{
+  text-align:center;
+  padding:clamp(5rem,13vw,9rem) var(--pad) clamp(4rem,9vw,6rem);
+  border-top:1px solid var(--line);
+  max-width:var(--max); margin:0 auto;
+}
+.outro__line{
+  font-family:var(--serif); font-style:italic; font-weight:300;
+  font-size:clamp(2.2rem,1.4rem + 4vw,3.8rem);
+  line-height:1.1; margin:0 0 1.4rem; color:var(--gold);
+}
+.outro__small{ margin:0 auto 2.6rem; color:var(--muted); max-width:30ch; }
+.outro__fine{ margin:0; font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:#4c453f; }
+
+/* ============================================================
+   Laser-Modus + FX
+   ============================================================ */
+
+.laser-toggle{
+  position:fixed; z-index:40;
+  right:clamp(.9rem,3vw,1.6rem);
+  bottom:calc(clamp(.9rem,3vw,1.6rem) + env(safe-area-inset-bottom));
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.6rem .95rem;
+  font-family:var(--sans); font-size:.66rem; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted);
+  background:rgba(19,16,16,.82);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--line); border-radius:99px;
+  cursor:pointer; opacity:0; transform:translateY(12px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease), color .3s, border-color .3s;
+  -webkit-tap-highlight-color:transparent;
+}
+.laser-toggle.is-visible{ opacity:1; transform:none; }
+.laser-toggle__dot{
+  width:7px; height:7px; border-radius:50%;
+  background:#4c453f; transition:background .3s, box-shadow .3s;
+}
+.laser-toggle[aria-pressed="true"]{ color:var(--laser); border-color:rgba(255,77,94,.36); }
+.laser-toggle[aria-pressed="true"] .laser-toggle__dot{
+  background:var(--laser); box-shadow:0 0 10px var(--laser);
+}
+
+.fx{
+  position:fixed; inset:0; z-index:50;
+  width:100%; height:100%;
+  pointer-events:none;
+}
+
+body.laser-on{ cursor:none; }
+body.laser-on a,body.laser-on button{ cursor:none; }
+
+/* ============================================================
+   Reveal
+   ============================================================ */
+
+.reveal{ opacity:0; transform:translateY(26px); }
+.reveal.is-in{
+  opacity:1; transform:none;
+  transition:opacity .9s var(--ease), transform .9s var(--ease);
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .reveal{ opacity:1; transform:none; }
+  .steam{ display:none; }
+}
