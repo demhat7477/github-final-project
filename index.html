@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Für Evin · Secret Spa Frankfurt</title>
+<meta name="description" content="Ein sehr verspäteter Geburtstagsgruß und ein Gutschein fürs Secret Spa in Frankfurt.">
+<meta name="theme-color" content="#0c0a09">
+<meta name="robots" content="noindex">
+
+<!-- WhatsApp-Vorschau. Nach dem ersten Deploy die zwei URLs hier auf die echte
+     Domain setzen (z. B. https://evin-birthday.vercel.app/…) – dann ist die
+     Vorschaukarte in jedem Messenger garantiert da. -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="Happy Birthday, Evin 🤍">
+<meta property="og:description" content="Dein Geschenk wartet hier drin. Einmal antippen.">
+<meta property="og:url" content="/">
+<meta property="og:image" content="/assets/media/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/favicon.svg">
+<link rel="preload" href="/assets/fonts/cormorant-garamond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/manrope-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<!-- ══════════════════ TÜRSTEHER ══════════════════ -->
+<section class="gate" id="gate">
+  <div class="gate__bg" aria-hidden="true"></div>
+  <div class="steam" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+  <div class="gate__inner">
+    <p class="kicker">Secret Spa · Frankfurt · Privatzugang</p>
+    <h1 class="gate__title">Für <em>Evin</em></h1>
+    <p class="gate__sub">Diese Seite existiert genau einmal und genau für dich.</p>
+
+    <button class="hold" id="hold" type="button" aria-describedby="holdHint">
+      <svg class="hold__ring" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="hold__track" cx="60" cy="60" r="54"/>
+        <circle class="hold__fill" cx="60" cy="60" r="54"/>
+      </svg>
+      <span class="hold__dot" aria-hidden="true"></span>
+      <span class="hold__label">Halten</span>
+    </button>
+
+    <p class="gate__hint" id="holdHint">
+      Gedrückt halten. Zwei Sekunden.<br>
+      <span class="dim">Wie beim Lasern – nur ohne das Zusammenzucken.</span>
+    </p>
+
+    <a class="gate__skip" href="#akte">Oder einfach runterscrollen</a>
+  </div>
+</section>
+
+<main id="main">
+
+<!-- ══════════════════ DIE AKTE ══════════════════ -->
+<section class="section" id="akte">
+  <header class="section__head reveal">
+    <p class="kicker">Beweisaufnahme</p>
+    <h2 class="h2">Die Akte <em>Evin</em></h2>
+    <p class="lead">Drei Dokumente. Lückenlos. Nicht wegzudiskutieren.</p>
+  </header>
+
+  <div class="exhibits">
+
+    <figure class="exhibit reveal">
+      <p class="exhibit__no">Beweisstück 01</p>
+      <div class="tv" id="tvWrap">
+        <div class="tv__screen">
+          <video id="clip" playsinline preload="none" poster="/assets/media/dance-poster.jpg">
+            <source src="/assets/media/dance.mp4" type="video/mp4">
+            <source src="/assets/media/dance.webm" type="video/webm">
+            Dein Browser mag dieses Video nicht. Sehr schade für ihn.
+          </video>
+          <div class="tv__scan" aria-hidden="true"></div>
+          <button class="play" id="play" type="button" aria-label="Video abspielen">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <span>Abspielen</span>
+          </button>
+        </div>
+      </div>
+      <figcaption>
+        <h3>Erste dokumentierte Bewegung auf einer Tanzfläche</h3>
+        <p>Kein Zögern. Kein Blick zur Seite. Volle Kontrolle über den Raum – mit ungefähr acht Jahren.
+           Ehrlich gesagt: viel geändert hat sich da nicht.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="exhibit exhibit--split reveal">
+      <div class="exhibit__media tilt">
+        <p class="exhibit__no">Beweisstück 02</p>
+        <img src="/assets/media/glowup.jpg" alt="Evin mit Sonnenhut vor der Küste" loading="lazy" decoding="async" width="900" height="763">
+      </div>
+      <figcaption>
+        <h3>Der Glow-up</h3>
+        <p>Zwischen Beweisstück 01 und hier liegen ein paar Jahre, ein Meer und ein sehr großer Hut.
+           Ergebnis: die Sorte Foto, bei der man kurz prüft, ob das wirklich die eigene Tante ist.</p>
+        <p class="stamp">Verifiziert</p>
+      </figcaption>
+    </figure>
+
+    <figure class="exhibit exhibit--split exhibit--flip reveal">
+      <div class="exhibit__media tilt">
+        <p class="exhibit__no">Beweisstück 03</p>
+        <img src="/assets/media/laser.jpg" alt="Evin bei einer Laserbehandlung" loading="lazy" decoding="async" width="860" height="1147">
+      </div>
+      <figcaption>
+        <h3>Die Täterin bei der Arbeit</h3>
+        <p>Sonnenbrille auf, Motus AX in der Hand, dieses ruhige Lächeln von jemandem,
+           der gleich 12.000 Impulse verteilt und dabei völlig entspannt bleibt.</p>
+        <p>Ich liege da. Ich zucke. Du sagst „stell dich nicht so an“. Jedes Mal.</p>
+        <p class="stamp stamp--red">Aktenzeichen: AU/TSCH</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- ══════════════════ AKTENLAGE ══════════════════ -->
+<section class="section section--tight" id="lage">
+  <header class="section__head reveal">
+    <p class="kicker">Aktenlage</p>
+    <h2 class="h2">Die Zahlen <em>lügen nicht</em></h2>
+  </header>
+
+  <ul class="stats reveal">
+    <li><b data-count="12480">0</b><span>Laser-Impulse, abgefeuert auf mich</span></li>
+    <li><b data-count="312">0</b><span>unterdrückte Schmerzenslaute</span></li>
+    <li><b data-count="0">0</b><span>Mal, dass ich dafür bezahlen durfte</span></li>
+    <li><b data-count="1">0</b><span>Tante, die das alles aufwiegt</span></li>
+  </ul>
+
+  <p class="verdict reveal" id="verdict">
+    <span class="verdict__label">Status deines Geburtstags</span>
+    <span class="verdict__value" id="verdictValue">verjährt</span>
+    <span class="verdict__note" id="verdictNote">Einspruch eingelegt. Geschenke verjähren nämlich nicht.</span>
+  </p>
+</section>
+
+<!-- ══════════════════ DER BRIEF ══════════════════ -->
+<section class="section" id="brief">
+  <div class="note reveal">
+    <p class="kicker">Persönlich</p>
+    <!-- ✍︎ Dein Text – hier drin steht er, kannst du jederzeit ändern. -->
+    <blockquote class="note__text">
+      <p>Moin Evoo,</p>
+      <p>also mittlerweile ist dein Geburtstag glaub ich schon verjährt, aber da es sich nicht
+         ergeben hat dich zu sehen, muss ich dir dein Geschenk jetzt so machen.</p>
+      <p>Da du mich immer behandelst, dass du dich jetzt selber behandelst.</p>
+    </blockquote>
+    <p class="note__sign">— dein meistbehandelter Kunde</p>
+  </div>
+</section>
+
+<!-- ══════════════════ DAS GESCHENK ══════════════════ -->
+<section class="section section--gift" id="geschenk">
+  <div class="steam steam--soft" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="section__head reveal">
+    <p class="kicker">Und jetzt das Eigentliche</p>
+    <h2 class="h2">Einmal <em>abschalten</em>, bitte</h2>
+    <p class="lead">Antippen zum Umdrehen.</p>
+  </header>
+
+  <div class="voucher reveal" id="voucher">
+    <button class="voucher__card" id="voucherCard" type="button" aria-pressed="false">
+      <span class="voucher__face voucher__face--front">
+        <span class="voucher__shine" aria-hidden="true"></span>
+        <span class="voucher__eyebrow">Secret Spa · Frankfurt</span>
+        <span class="voucher__word">Gutschein</span>
+        <span class="voucher__rule" aria-hidden="true"></span>
+        <span class="voucher__for">für Evin</span>
+        <span class="voucher__flip">umdrehen ↻</span>
+      </span>
+      <span class="voucher__face voucher__face--back">
+        <span class="voucher__shine" aria-hidden="true"></span>
+        <dl class="voucher__rows">
+          <div><dt>Von</dt><dd>Demhat</dd></div>
+          <div><dt>Anlass</dt><dd>Geburtstag (leicht überfällig)</dd></div>
+          <div><dt>Leistung</dt><dd>Ein Tag Secret Spa, Frankfurt</dd></div>
+          <div><dt>Gültig</dt><dd>bis du Zeit hast</dd></div>
+          <div><dt>Aufgabe</dt><dd>nichts. Wirklich nichts.</dd></div>
+        </dl>
+        <span class="voucher__note">Termin machen wir zusammen aus.</span>
+      </span>
+    </button>
+  </div>
+
+  <figure class="place reveal">
+    <img src="/assets/media/spa.jpg" alt="Innenraum des Secret Spa in Frankfurt mit dunklem Marmor" loading="lazy" decoding="async" width="700" height="400">
+    <figcaption>Da geht's hin. Dunkler Marmor, warmes Licht, kein Handyempfang für schlechte Nachrichten.</figcaption>
+  </figure>
+</section>
+
+<!-- ══════════════════ OUTRO ══════════════════ -->
+<footer class="outro">
+  <p class="outro__line reveal">Alles Gute, Evoo.</p>
+  <p class="outro__small reveal">
+    Viel zu spät, dafür mit einer eigenen Website.<br>
+    Das muss doch auch was wert sein.
+  </p>
+  <p class="outro__fine reveal">Gebaut mit Liebe, schlechtem Gewissen und 1064&nbsp;nm.</p>
+</footer>
+
+</main>
+
+<button class="laser-toggle" id="laserToggle" type="button" aria-pressed="false">
+  <span class="laser-toggle__dot" aria-hidden="true"></span>
+  <span class="laser-toggle__text">Laser&#8209;Modus</span>
+</button>
+
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
