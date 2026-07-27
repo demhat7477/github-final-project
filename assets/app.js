@@ -355,6 +355,56 @@ const fx = (() => {
 })();
 
 /* ============================================================
+   Einlösecode kopieren
+   ============================================================ */
+
+(() => {
+  const btn = $('#codeCopy');
+  const value = $('#codeValue');
+  if (!btn || !value) return;
+
+  const label = btn.textContent;
+  let reset = null;
+
+  const feedback = ok => {
+    btn.textContent = ok ? 'Kopiert ✓' : 'Bitte von Hand kopieren';
+    btn.classList.toggle('is-done', ok);
+    clearTimeout(reset);
+    reset = setTimeout(() => {
+      btn.textContent = label;
+      btn.classList.remove('is-done');
+    }, 2400);
+  };
+
+  // Ältere iOS-Versionen kennen die Clipboard-API noch nicht.
+  const legacyCopy = text => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    ta.remove();
+    return ok;
+  };
+
+  btn.addEventListener('click', async () => {
+    const text = value.textContent.trim();
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        feedback(true);
+        return;
+      } catch { /* unten weiter */ }
+    }
+    feedback(legacyCopy(text));
+  });
+})();
+
+/* ============================================================
    Laser-Modus
    ============================================================ */
 
