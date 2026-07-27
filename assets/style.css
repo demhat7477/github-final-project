@@ -83,7 +83,8 @@ em{ font-style:italic; }
 .gate__bg{
   position:absolute; inset:0;
   background:url("/assets/media/spa.jpg") center/cover no-repeat;
-  filter:blur(4px) brightness(.48) saturate(.85);
+  /* stark abgedunkelt: soll Atmosphäre sein, nicht den Ort verraten */
+  filter:blur(9px) brightness(.28) saturate(.8);
   transform:scale(1.12);
 }
 .gate__bg::after{
